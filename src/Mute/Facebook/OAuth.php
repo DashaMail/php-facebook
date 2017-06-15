@@ -108,7 +108,11 @@ class OAuth
         );
 
         $response = $this->app->request('oauth/access_token', $params);
-        parse_str($response, $components);
+        if (!is_array($response)){
+            parse_str($response, $components);
+        }else{
+            $components = $response;
+        }
 
         // return array "access_token", ...;
         return $components;
